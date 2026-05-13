@@ -7,54 +7,34 @@
     <link rel="stylesheet" href="ninin2.css">
 </head>
 <body>
-    <video autoplay muted loop id="bg-video">
-        <source src="assets/polaroid.mp4" type="video/mp4">
-    </video>
+    <video autoplay muted loop id="bg-video"><source src="assets/polaroid.mp4" type="video/mp4"></video>
     <div class="overlay"></div>
-
     <div class="flower-container">
         <div class="tulip-wrapper">
             <div class="head">
-                <div class="petal-back-left"></div>
-                <div class="petal-back-right"></div>
-                <div class="petal-front-left"></div>
-                <div class="petal-front-right"></div>
+                <div class="petal-back-left"></div><div class="petal-back-right"></div>
+                <div class="petal-front-left"></div><div class="petal-front-right"></div>
                 <div class="petal-center"></div>
             </div>
             <div class="stem">
-                <div class="leaf leaf-left"></div>
-                <div class="leaf leaf-right"></div>
-                <div class="leaf leaf-left-lower"></div>
-                <div class="leaf leaf-right-lower"></div>
+                <div class="leaf leaf-left"></div><div class="leaf leaf-right"></div>
             </div>
         </div>
-        
         <h2 class="gift-text">🫶 An Emerald Tulip for Ninin 🫶</h2>
         <a href="ninin1.html" class="back-link">← Back to the Pictures</a>
     </div>
-
     <script>
-        const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
-        document.addEventListener('mousemove', (e) => {
+        const emojis = ['💚', '🌷', '✨', '🫶'];
+        const createTrail = (x, y) => {
             const trail = document.createElement('div');
             trail.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
             trail.className = 'heart-trail';
-            trail.style.left = e.pageX + 'px';
-            trail.style.top = e.pageY + 'px';
+            trail.style.left = x + 'px'; trail.style.top = y + 'px';
             document.body.appendChild(trail);
             setTimeout(() => trail.remove(), 1600);
-        });
-        
-        // Mobile touch support for trail
-        document.addEventListener('touchmove', (e) => {
-            const trail = document.createElement('div');
-            trail.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-            trail.className = 'heart-trail';
-            trail.style.left = e.touches[0].pageX + 'px';
-            trail.style.top = e.touches[0].pageY + 'px';
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 1600);
-        });
+        };
+        document.addEventListener('mousemove', (e) => createTrail(e.pageX, e.pageY));
+        document.addEventListener('touchmove', (e) => createTrail(e.touches[0].pageX, e.touches[0].pageY));
     </script>
 </body>
 </html>
