@@ -1,26 +1,19 @@
-/* ... Keep your existing ninin1.css styles here ... */
+body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; color: white; }
+.overlay { position: fixed; inset: 0; background: rgba(0, 155, 119, 0.3); z-index: 0; }
+.scrapbook-container { position: relative; z-index: 1; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; }
+.title { color: #F4C542; font-size: 3.5rem; text-align: center; }
+.grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; perspective: 1500px; }
+.polaroid-card { width: 400px; height: 540px; cursor: pointer; }
+.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+.polaroid-card:hover .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back { position: absolute; inset: 0; backface-visibility: hidden; background: white; padding: 20px; border-radius: 4px; }
+.card-front img { width: 100%; height: 380px; object-fit: cover; }
+.card-back { background: #F4C542; transform: rotateY(180deg); color: #1e8449; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.final-btn { background: #D4AF37; color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; margin-top: 15px; border: 2px solid white; }
 
-/* ADD THIS AT THE BOTTOM FOR MOBILE VIEW */
-@media (max-width: 480px) {
-    .title {
-        font-size: 2rem;
-        padding: 0 10px;
-    }
-
-    .polaroid-card {
-        width: 320px; /* Smaller cards for mobile */
-        height: 460px;
-    }
-
-    .card-front img {
-        height: 300px;
-    }
-
-    .caption {
-        font-size: 1.5rem;
-    }
-
-    .letter-text {
-        font-size: 0.9rem;
-    }
+/* MOBILE VIEW */
+@media (max-width: 600px) {
+    .title { font-size: 2rem; }
+    .polaroid-card { width: 90vw; height: auto; aspect-ratio: 4 / 5.5; }
+    .card-front img { height: 70%; }
 }
