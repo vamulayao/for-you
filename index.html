@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT BIRTHDAY</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="assets/petals.mp4" type="video/mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- Countdown Section -->
+        <div id="countdown-wrapper" class="glass-panel">
+            <h1>Counting down to your day...</h1>
+            <div id="timer">
+                <div class="time-box"><span id="days">00</span><p>Days</p></div>
+                <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
+                <div class="time-box"><span id="minutes">00</span><p>Mins</p></div>
+                <div class="time-box"><span id="seconds">00</span><p>Secs</p></div>
+            </div>
+        </div>
+
+        <!-- Birthday Message Section -->
+        <div id="birthday-message" class="glass-panel hidden">
+            <div class="sparkles">🫶🫶🫶</div>
+            <h2 class="greeting-text">Happy Birthday Ninin!</h2>
+            <div class="sparkles">✨🌸✨</div>
+            <a href="ninin1.html" class="proceed-btn">Proceed</a>
+        </div>
+    </div>
+
+    <script>
+        const targetDate = new Date("May 14, 2026 23:50:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Logic for reveal
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown-wrapper").classList.add("hidden");
+                document.getElementById("birthday-message").classList.remove("hidden");
+                return;
+            }
+
+            // Time Calculations
+            const d = Math.floor(distance / 86400000);
+            const h = Math.floor((distance % 86400000) / 3600000);
+            const m = Math.floor((distance % 3600000) / 60000);
+            const s = Math.floor((distance % 60000) / 1000);
+
+            // Display update
+            document.getElementById("days").innerText = d.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+
+        }, 1000);
+    </script>
+</body>
+</html>

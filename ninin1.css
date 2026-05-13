@@ -1,0 +1,126 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    color: white;
+}
+
+/*#bg-video {
+    position: fixed;
+    inset: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}*/
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 155, 119, 0.3); 
+    z-index: 0;
+}
+
+.scrapbook-container {
+    position: relative;
+    z-index: 1;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #F4C542;
+    font-size: 3.5rem;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    perspective: 1500px;
+}
+
+.polaroid-card {
+    width: 400px;
+    height: 540px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.tilt-left .card-inner { transform: rotate(-3deg); }
+.tilt-right .card-inner { transform: rotate(3deg); }
+
+.polaroid-card:hover .card-inner {
+    transform: rotateY(180deg) rotate(0deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.card-front img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.caption {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.2rem;
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.card-back {
+    background: #F4C542;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #1e8449;
+    padding: 35px;
+    text-align: center;
+}
+
+.final-btn {
+    background: #D4AF37;
+    color: white;
+    text-decoration: none;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-weight: bold;
+    border: 2px solid white;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+.final-btn:hover {
+    background: white;
+    color: #D4AF37;
+    transform: scale(1.1);
+}
