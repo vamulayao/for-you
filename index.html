@@ -2,19 +2,316 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROJECT BIRTHDAY</title>
-    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>PROJECT BIRTHDAY • NININ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Roboto', Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            color: white;
+            background: #0a2f1f; /* fallback rich green */
+        }
+
+        /* ----- VIDEO BACKGROUND ----- */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        /* ----- EMERALD TINT OVERLAY (softer, elegant) ----- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(36, 113, 83, 0.55); /* richer emerald tone */
+            backdrop-filter: brightness(1.02);
+            z-index: -1;
+        }
+
+        /* main container - perfect centering on all phones */
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Shared glass panel style — responsive & touch-friendly */
+        .glass-panel {
+            background: rgba(244, 197, 66, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 245, 200, 0.45);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+            padding: 2rem 1.5rem;
+            width: 90%;
+            max-width: 550px;
+            transition: all 0.3s ease;
+        }
+
+        /* countdown specific heading */
+        .glass-panel h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFF8E7, #F7D44A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* TIMER FLEX - responsive grid */
+        #timer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 0.5rem;
+        }
+
+        /* modern frosted glass time boxes — optimized for mobile tap targets */
+        .time-box {
+            background: rgba(30, 30, 20, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 1rem 0.5rem;
+            border-radius: 32px;
+            min-width: 70px;
+            flex: 1 1 auto;
+            border: 1px solid rgba(255, 235, 150, 0.5);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .time-box span {
+            font-size: 2.8rem;
+            font-weight: 800;
+            display: block;
+            color: #FFE484;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 1px 1px 0 #7a4c0c;
+            letter-spacing: 2px;
+        }
+
+        .time-box p {
+            margin: 8px 0 0 0;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1.8px;
+            font-weight: 700;
+            color: #FFF2D0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* birthday message section (hidden at start) */
+        #birthday-message {
+            text-align: center;
+            padding: 2rem 1.8rem;
+        }
+
+        .greeting-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #FFDF85, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            margin: 20px 0 10px;
+            letter-spacing: -0.5px;
+            animation: bounce 2s infinite ease;
+        }
+
+        .sparkles {
+            font-size: 2.6rem;
+            letter-spacing: 8px;
+            filter: drop-shadow(0 0 5px gold);
+        }
+
+        /* proceed button — large enough for thumbs */
+        .proceed-btn {
+            display: inline-block;
+            background: linear-gradient(105deg, #D4AF37, #F5C542);
+            color: #1e562e;
+            padding: 14px 32px;
+            margin-top: 32px;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.35rem;
+            transition: all 0.25s;
+            border: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            backdrop-filter: blur(2px);
+            letter-spacing: 1px;
+        }
+
+        .proceed-btn:active {
+            transform: scale(0.97);
+            background: #e6bc3c;
+            box-shadow: 0 4px 12px black;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* animated bounce */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-12px); }
+            60% { transform: translateY(-6px); }
+        }
+
+        /* ==========  RESPONSIVE: MOBILE FIRST (iPhone & Android) ========== */
+        @media (max-width: 550px) {
+            .glass-panel {
+                padding: 1.5rem 1rem;
+                border-radius: 40px;
+                width: 92%;
+            }
+
+            .glass-panel h1 {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+            }
+
+            .time-box {
+                padding: 0.75rem 0.2rem;
+                min-width: 68px;
+                border-radius: 28px;
+            }
+
+            .time-box span {
+                font-size: 2.2rem;
+            }
+
+            .time-box p {
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+            }
+
+            #timer {
+                gap: 8px;
+            }
+
+            .greeting-text {
+                font-size: 2.6rem;
+            }
+
+            .sparkles {
+                font-size: 2rem;
+                letter-spacing: 5px;
+            }
+
+            .proceed-btn {
+                padding: 12px 24px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* for very small devices (old iPhones SE, small androids) */
+        @media (max-width: 420px) {
+            .time-box span {
+                font-size: 1.9rem;
+            }
+            .time-box {
+                min-width: 58px;
+                padding: 0.6rem 0.1rem;
+            }
+            .glass-panel h1 {
+                font-size: 1.4rem;
+            }
+            .greeting-text {
+                font-size: 2.3rem;
+            }
+        }
+
+        /* landscape mode adjustments: keep timer visible without overflow */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 0.5rem;
+            }
+            .glass-panel {
+                padding: 0.8rem 1rem;
+            }
+            .glass-panel h1 {
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
+            }
+            .time-box span {
+                font-size: 1.7rem;
+            }
+            .time-box {
+                padding: 0.4rem 0.2rem;
+                min-width: 60px;
+            }
+            .proceed-btn {
+                margin-top: 12px;
+                padding: 6px 20px;
+                font-size: 1rem;
+            }
+            .greeting-text {
+                margin: 8px 0;
+                font-size: 2rem;
+            }
+        }
+
+        /* smooth hover effect for modern devices (no sticky hover on touch) */
+        @media (hover: hover) {
+            .proceed-btn:hover {
+                background: #FFD966;
+                transform: scale(1.02);
+                color: #1a472a;
+                box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            }
+        }
+
+        /* accessibility: remove tap highlight on mobile */
+        .proceed-btn, .time-box {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
 </head>
 <body>
-    <video autoplay muted loop id="bg-video">
+
+    <!-- PETALS VIDEO BACKGROUND (with fallback gradient) -->
+    <video autoplay muted loop playsinline id="bg-video">
         <source src="assets/petals.mp4" type="video/mp4">
+        <!-- Fallback text if video missing — but gradient still shows under overlay -->
     </video>
+
     <div class="overlay"></div>
 
     <div class="container">
+        <!-- COUNTDOWN SECTION -->
         <div id="countdown-wrapper" class="glass-panel">
-            <h1>Counting down to your day...</h1>
+            <h1>✨ counting down to your day ✨</h1>
             <div id="timer">
                 <div class="time-box"><span id="days">00</span><p>Days</p></div>
                 <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
@@ -23,32 +320,101 @@
             </div>
         </div>
 
+        <!-- BIRTHDAY MESSAGE SECTION (initially hidden) -->
         <div id="birthday-message" class="glass-panel hidden">
             <div class="sparkles">🫶🫶🫶</div>
             <h2 class="greeting-text">Happy Birthday Ninin!</h2>
             <div class="sparkles">✨🌸✨</div>
-            <a href="ninin1.html" class="proceed-btn">Proceed</a>
+            <a href="ninin1.html" class="proceed-btn">Proceed ➤</a>
         </div>
     </div>
 
     <script>
-        const targetDate = new Date("May 14, 2026 23:50:00").getTime();
-        const timerInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+        (function() {
+            // 🎂 TARGET DATE: May 14, 2026, 23:50:00
+            const targetDate = new Date("May 14, 2026 23:50:00").getTime();
 
-            if (distance < 0) {
-                clearInterval(timerInterval);
-                document.getElementById("countdown-wrapper").classList.add("hidden");
-                document.getElementById("birthday-message").classList.remove("hidden");
-                return;
+            // DOM elements
+            const countdownWrapper = document.getElementById("countdown-wrapper");
+            const birthdayMessageDiv = document.getElementById("birthday-message");
+            const daysSpan = document.getElementById("days");
+            const hoursSpan = document.getElementById("hours");
+            const minutesSpan = document.getElementById("minutes");
+            const secondsSpan = document.getElementById("seconds");
+
+            // Optional: preload or handle any edge cases
+            let timerRunning = true;
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // 🎉 REACHED BIRTHDAY: show message and hide countdown
+                if (distance <= 0) {
+                    if (timerRunning) {
+                        // Stop timer and switch UI
+                        clearInterval(timerInterval);
+                        timerRunning = false;
+                        
+                        // Hide countdown panel, show birthday panel
+                        countdownWrapper.classList.add("hidden");
+                        birthdayMessageDiv.classList.remove("hidden");
+                    }
+                    return; // exit early
+                }
+
+                // Calculate time units
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Update DOM with leading zeros
+                daysSpan.innerText = days.toString().padStart(2, '0');
+                hoursSpan.innerText = hours.toString().padStart(2, '0');
+                minutesSpan.innerText = minutes.toString().padStart(2, '0');
+                secondsSpan.innerText = seconds.toString().padStart(2, '0');
             }
 
-            document.getElementById("days").innerText = Math.floor(distance / 86400000).toString().padStart(2, '0');
-            document.getElementById("hours").innerText = Math.floor((distance % 86400000) / 3600000).toString().padStart(2, '0');
-            document.getElementById("minutes").innerText = Math.floor((distance % 3600000) / 60000).toString().padStart(2, '0');
-            document.getElementById("seconds").innerText = Math.floor((distance % 60000) / 1000).toString().padStart(2, '0');
-        }, 1000);
+            // initial call
+            updateCountdown();
+
+            // set interval only if not expired at start
+            let timerInterval;
+            if (targetDate - new Date().getTime() > 0) {
+                timerInterval = setInterval(updateCountdown, 1000);
+            } else {
+                // already birthday! immediately show message
+                countdownWrapper.classList.add("hidden");
+                birthdayMessageDiv.classList.remove("hidden");
+            }
+
+            // ensure that if the timer reveals exactly at the moment, edge case sync
+            // also manage visibility after tab restore
+            window.addEventListener('focus', function() {
+                const nowCheck = new Date().getTime();
+                if (targetDate - nowCheck <= 0) {
+                    if (countdownWrapper && birthdayMessageDiv) {
+                        countdownWrapper.classList.add("hidden");
+                        birthdayMessageDiv.classList.remove("hidden");
+                    }
+                    if (timerInterval) clearInterval(timerInterval);
+                } else {
+                    // re-check values to keep them correct
+                    updateCountdown();
+                }
+            });
+
+            // iPhone / Android: ensure video background plays nicely with inline autoplay muted playsinline
+            const bgVideo = document.getElementById('bg-video');
+            if (bgVideo) {
+                // for mobile to guarantee playback even with low power mode, attempt play if paused
+                bgVideo.play().catch(e => {
+                    // autoplay prevented? we can still rely on muted attribute, but fallback is fine
+                    console.log("Video autoplay blocked (user interaction maybe needed), but background visible.");
+                });
+            }
+        })();
     </script>
 </body>
 </html>
