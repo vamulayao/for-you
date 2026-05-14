@@ -2,500 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>For My Ninin • Birthday Scrapbook</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Roboto', 'Poppins', sans-serif;
-            background: linear-gradient(145deg, #0b3b2a 0%, #1a5a40 100%);
-            overflow-x: hidden;
-            color: white;
-        }
-
-        /* overlay for soft depth */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(244, 197, 66, 0.12), rgba(0, 40, 30, 0.4));
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .scrapbook-container {
-            position: relative;
-            z-index: 2;
-            padding: 40px 20px 70px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .title {
-            color: #FFE3A4;
-            font-size: 2.8rem;
-            text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0,0,0,0.3);
-            margin-bottom: 35px;
-            text-align: center;
-            letter-spacing: -0.5px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #FFF1B5, #F7C35C);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: none;
-            padding: 0 10px;
-        }
-
-        /* responsive grid */
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 45px;
-            perspective: 1600px;
-            width: 100%;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        /* POLAROID CARD - improved for mobile touch */
-        .polaroid-card {
-            width: 380px;
-            height: 530px;
-            cursor: pointer;
-            position: relative;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.75s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
-            border-radius: 14px;
-            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        /* initial tilt (playful) */
-        .tilt-left .card-inner {
-            transform: rotateY(0deg) rotate(-2.5deg);
-        }
-        .tilt-right .card-inner {
-            transform: rotateY(0deg) rotate(2.5deg);
-        }
-
-        /* hover + touch flip (active on click for mobile) */
-        .polaroid-card:hover .card-inner,
-        .polaroid-card.flipped .card-inner {
-            transform: rotateY(180deg) rotate(0deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            inset: 0;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            overflow-y: auto;
-            background: #FFFBF0;
-            padding: 20px 18px;
-            box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.4);
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* custom scroll for back content (long messages) */
-        .card-back {
-            background: #F9E0A0;
-            transform: rotateY(180deg);
-            color: #1e562e;
-            text-align: center;
-            justify-content: flex-start;
-            gap: 14px;
-        }
-
-        .card-front img {
-            width: 100%;
-            height: 360px;
-            object-fit: cover;
-            border-radius: 14px;
-            border: 2px solid rgba(244, 197, 66, 0.6);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-            background: #f5e5c8;
-        }
-
-        .caption {
-            font-family: 'Brush Script MT', 'Segoe UI', cursive;
-            font-size: 2rem;
-            color: #af7f2c;
-            margin-top: 16px;
-            text-align: center;
-            font-weight: 600;
-            letter-spacing: 1px;
-            background: rgba(255,245,200,0.6);
-            padding: 6px 0;
-            border-radius: 40px;
-        }
-
-        /* back content styling */
-        .card-back h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #b45f1b;
-            margin-bottom: 8px;
-            border-bottom: 2px dashed #d4a13e;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .letter-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #2c4b2f;
-            font-weight: 500;
-            text-align: left;
-            margin: 10px 0;
-            max-height: 280px;
-            overflow-y: auto;
-            padding-right: 6px;
-            font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
-        }
-
-        /* custom scrollbar for love letters */
-        .letter-text::-webkit-scrollbar {
-            width: 4px;
-        }
-        .letter-text::-webkit-scrollbar-track {
-            background: #eedd99;
-            border-radius: 8px;
-        }
-        .letter-text::-webkit-scrollbar-thumb {
-            background: #c68b2c;
-            border-radius: 8px;
-        }
-
-        .final-btn {
-            background: linear-gradient(115deg, #d9a13b, #b97f2a);
-            color: white;
-            text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1rem;
-            border: none;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
-            margin-top: 10px;
-            display: inline-block;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        .final-btn:active {
-            transform: scale(0.96);
-            background: #ffbe4d;
-        }
-
-        /* fallback note */
-        .back-note {
-            font-size: 0.85rem;
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* ---------- RESPONSIVE: PERFECT FOR IPHONE & ANDROID ---------- */
-        @media (max-width: 880px) {
-            .grid {
-                gap: 35px;
-            }
-            .polaroid-card {
-                width: 340px;
-                height: 500px;
-            }
-            .card-front img {
-                height: 310px;
-            }
-            .title {
-                font-size: 2.2rem;
-                margin-bottom: 30px;
-            }
-            .caption {
-                font-size: 1.8rem;
-            }
-            .card-back h3 {
-                font-size: 1.5rem;
-            }
-            .letter-text {
-                font-size: 0.88rem;
-                max-height: 240px;
-            }
-        }
-
-        @media (max-width: 550px) {
-            .scrapbook-container {
-                padding: 30px 16px 60px 16px;
-            }
-            .polaroid-card {
-                width: 94%;
-                max-width: 360px;
-                height: auto;
-                min-height: 490px;
-                margin: 0 auto;
-            }
-            .card-inner {
-                min-height: 500px;
-            }
-            .card-front, .card-back {
-                position: relative;
-                height: auto;
-                min-height: 500px;
-            }
-            .card-front img {
-                height: 280px;
-            }
-            .title {
-                font-size: 1.9rem;
-                line-height: 1.3;
-            }
-            .letter-text {
-                max-height: 260px;
-                font-size: 0.85rem;
-            }
-            .final-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            /* On small devices, ensure flipping still works with tap */
-            .polaroid-card {
-                cursor: pointer;
-            }
-        }
-
-        /* landscape mode fix */
-        @media (max-height: 550px) and (orientation: landscape) {
-            .scrapbook-container {
-                padding: 20px 10px;
-            }
-            .polaroid-card {
-                width: 330px;
-                height: 440px;
-            }
-            .card-front img {
-                height: 240px;
-            }
-            .letter-text {
-                max-height: 160px;
-            }
-            .title {
-                font-size: 1.6rem;
-                margin-bottom: 12px;
-            }
-            .grid {
-                gap: 25px;
-            }
-        }
-
-        /* touch-friendly feedback */
-        .polaroid-card:active {
-            transform: scale(0.99);
-        }
-
-        /* remove default focus outline but keep accessibility */
-        .final-btn:focus-visible, .polaroid-card:focus-visible {
-            outline: 2px solid #ffd966;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Ninin</title>
+    <link rel="stylesheet" href="ninin1.css">
 </head>
 <body>
+    <!-- Video Background - Playsinline added for mobile support -->
+    <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
+        <source src="assets/polaroid.mp4" type="video/mp4">
+    </video>
+
     <div class="overlay"></div>
     
     <div class="scrapbook-container">
-        <h1 class="title">Happy 23rd Birthday Binibini! 🌸</h1>
+        <h1 class="title">Happy 23rd Birthday Binibini!</h1>
         
         <div class="grid">
-            <!-- First Polaroid Card (tilt left) -->
-            <div class="polaroid-card tilt-left" id="card1">
+            <!-- First Polaroid -->
+            <div class="polaroid-card tilt-left" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us precious moment" onerror="this.src='https://placehold.co/400x380/FFE3B0/8B5A2B?text=Your+Memory+Here'">
+                        <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
                         <p class="caption">05 / 14 / 2026<br>🫶</p>
                     </div>
                     <div class="card-back">
                         <h3>Dearest Ninin,</h3>
-                        <div class="letter-text">
-                            <p>So Ninin, before this day ends, again happy birthday po!! Thank you sa pag-entertain at pagbigay ng chance kay Eytan. I'm so thankful to have you po. Even though ganito palang tayo, thank you sa trust na binigay mo kay Eytan and I won't promise kasi promises are meant to be broken. So I will try my hardest na hindi masira at masayang ang trust mo.</p>
-                            <p style="margin-top: 12px;">Continuation sa next pic, masyado mahaba message ni Itan e. 😊 Pero gusto ko lang malaman mo na bawat araw kasama ka is a gift. You make everything brighter, Ninin ko. 💛</p>
-                        </div>
-                        <small class="back-note">✨ flip me back anytime ✨</small>
+                        <p class="letter-text">
+                            So Ninin, before this day ends, again happy birthday po!! Thank you sa pag-entertain at pagbigay ng chance kay Eytan. I'm so thankful to have you po. Even though ganito palang tayo, thank you sa trust na binigay mo kay Eytan and I won't promise kasi promises are meant to be broken. So I will try my hardest na hindi masira at masayang ang trust mo. Continuation sa next pic...
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Second Polaroid Card (tilt right + gift link) -->
-            <div class="polaroid-card tilt-right" id="card2">
+            <!-- Second Polaroid -->
+            <div class="polaroid-card tilt-right" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="assets/download.jpg" alt="Another sweet memory" onerror="this.src='https://placehold.co/400x380/FFD97C/9B6A2B?text=Our+Journey'">
+                        <img src="assets/download.jpg" alt="Us">
                         <p class="caption">05 / 14 / 2026<br>🫶</p>
                     </div>
                     <div class="card-back">
-                        <h3>My forever note 🫶</h3>
-                        <div class="letter-text">
-                            <p>Thank you for understanding our situation Ninin, I often get insecure to others kasi di ko ikaw na t-treat the way I wanted to pero still genuine ka na happy sa akin. Thank you for all kahit nagstart palang tayo and we have a long way to go.</p>
-                            <p>I wish all the best for you Ninin ko, sana matupad mo lahat ng pangarap mo, maging successful ikaw. You've been a brave girl keep it up po. I will always be here Ninin. I'll make myself available as much as I can. And please wag ikaw mahiya sakin if may gusto ka sabihin at need ng tulong. Hindi na ikaw iba sa akin Ninin.</p>
-                            <p><strong>Again Happiest Birthday Ninin ko!</strong> 🎂✨</p>
-                        </div>
-                        <!-- Link to the gift page (ninin2.html) -->
-                        <a href="ninin2.html" class="final-btn">🎁 Open My Gift 🎁</a>
-                        <small class="back-note">click the gift to continue the surprise</small>
+                        <p class="letter-text">
+                            Thank you for understanding our situation Ninin, I often get insecure to others kasi di ko ikaw na t-treat the way I wanted to pero still genuine ka na happy sa akin. Thank you for all kahit nagstart palang tayo and we have a long way to go. I wish all the best for you Ninin ko, sana matupad mo lahat ng pangarap mo, maging successful ikaw. You've been a brave girl keep it up po. I will always be here Ninin.
+                        </p>
+                        <a href="ninin2.html" class="final-btn">Open My Gift</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // enhance mobile interaction: add tap-to-flip support for both cards
-        // because on mobile devices hover doesn't work consistently, we use click/toggle class.
-        // also ensures that links inside the back side are still clickable without unwanted flip toggling.
-        
-        const card1 = document.getElementById('card1');
-        const card2 = document.getElementById('card2');
-        
-        // helper to close other card when one is flipped (optional for better UX)
-        function closeOtherCards(currentCard) {
-            const cards = [card1, card2];
-            cards.forEach(card => {
-                if (card !== currentCard && card.classList.contains('flipped')) {
-                    card.classList.remove('flipped');
-                }
-            });
-        }
-        
-        function handleCardFlip(card, event) {
-            // IMPORTANT: If the click target is inside a link (.final-btn or any anchor), don't flip the card.
-            // that way the "Open My Gift" link works without conflict.
-            let target = event.target;
-            while (target && target !== card) {
-                if (target.tagName === 'A' || target.classList?.contains('final-btn')) {
-                    // user clicked on the gift link: allow normal navigation, no flip
-                    return;
-                }
-                target = target.parentElement;
-            }
-            
-            // also if the click is on the .back-note or inside the letter-text (optional, but fine)
-            // we flip only if not interactive link.
-            card.classList.toggle('flipped');
-            closeOtherCards(card);
-        }
-        
-        // attach event listeners for both desktop & mobile (pointer events)
-        if (card1) {
-            card1.addEventListener('click', (e) => handleCardFlip(card1, e));
-        }
-        if (card2) {
-            card2.addEventListener('click', (e) => handleCardFlip(card2, e));
-        }
-        
-        // ensure that hover state doesn't conflict on devices that have both hover and click.
-        // For touch devices, we rely on .flipped class, remove hover side-effects if needed.
-        // additionally, for desktop users who use hover we keep native hover behavior,
-        // but if they click, we also add .flipped to sync. However, the CSS already prioritizes .flipped.
-        // So both work seamlessly: desktop hover flips, on mobile we use class toggle.
-        
-        // Fix: if any card is flipped and window resizes, maintain visual.
-        // ensure that when you click the gift link inside card2's back, navigation works and doesn't flip back.
-        // The event delegation already stops propagation for A tags.
-        
-        // bonus: preload images if needed (not required)
-        // also ensure that if images from assets are missing, fallback placeholder appears gracefully.
-        
-        // Add small improvement: prevent body scroll when card back is long on mobile (user can scroll letter)
-        // but it's already scrollable using overflow:auto, no extra needed.
-        
-        // Smart orientation fix: on some phones, flipping might cause layout shift? not an issue.
-        console.log("✨ Birthday scrapbook ready — made with love for Ninin ✨");
-        
-        // For Android/iOS, enable active state for buttons feedback
-        const btns = document.querySelectorAll('.final-btn');
-        btns.forEach(btn => {
-            btn.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(0.97)';
-            });
-            btn.addEventListener('touchend', function() {
-                this.style.transform = '';
-            });
-            btn.addEventListener('touchcancel', function() {
-                this.style.transform = '';
-            });
-        });
-        
-        // make sure that if the user accidentally double clicks the card while trying to open gift, it's fine.
-        // Also reset any flipped state when navigating away?
-        
-        // Edge: for desktop hover + click conflict? Not really, because hover gives preview but click will keep flipped state.
-        // To unify, when user hovers out on desktop after click - we don't remove flipped because .flipped class overrides.
-        // But if they click again, we remove flipped = perfect.
-        
-        // optional: double click prevention? not needed.
-        
-        // Additional micro interaction: if a card is flipped and user clicks outside? They'll just click another card.
-        // We also added closeOtherCards so that only one card stays flipped at a time (clean interface)
-        
-        // remove hover effect on mobile when not needed (prevent weird stuck states)
-        if ('ontouchstart' in window) {
-            // mobile: remove any :hover flicker - make transitions smooth
-            const style = document.createElement('style');
-            style.textContent = `
-                .polaroid-card:hover .card-inner {
-                    transform: rotateY(0deg) rotate(0deg);
-                }
-                .polaroid-card.flipped .card-inner {
-                    transform: rotateY(180deg) rotate(0deg) !important;
-                }
-                .tilt-left .card-inner, .tilt-right .card-inner {
-                    transform: rotateY(0deg) rotate(0deg);
-                }
-                .polaroid-card {
-                    cursor: pointer;
-                }
-            `;
-            document.head.appendChild(style);
-            // For mobile, make default tilt a bit softer but keep it playful with slight rotation?
-            // Actually we re-define the tilt on mobile without hover flicker:
-            const inlineTilt = document.createElement('style');
-            inlineTilt.textContent = `
-                @media (max-width: 780px) {
-                    .tilt-left .card-inner {
-                        transform: rotateY(0deg) rotate(-1deg);
-                    }
-                    .tilt-right .card-inner {
-                        transform: rotateY(0deg) rotate(1deg);
-                    }
-                }
-            `;
-            document.head.appendChild(inlineTilt);
-        }
-        
-        // ensure that on devices that hover, we don't disable tilt initially? Actually ok.
-        // final: make sure the "Open My Gift" link points to ninin2.html without issues.
-        // We also prepend base fallback in case that file missing, but it's part of project.
-    </script>
 </body>
 </html>
