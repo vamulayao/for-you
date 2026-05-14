@@ -2,23 +2,24 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     overflow: hidden;
-    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-/*#bg-video {
+#bg-video {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: -1;
-}*/
+}
 
 .overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(46, 204, 113, 0.2));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(46, 204, 113, 0.2));
     z-index: 0;
 }
 
@@ -28,31 +29,28 @@ body, html {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Anchors flower to bottom on mobile */
+    justify-content: center;
     align-items: center;
-    padding-bottom: 80px; /* Space for the link */
-    box-sizing: border-box;
+    padding-top: 50px; /* Space for the flower to bloom upwards */
 }
 
 /* --- THE TULIP --- */
 .tulip-wrapper {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    position: relative;
 }
 
 /* Stem */
 .stem {
     width: 10px;
-    height: 280px; /* Slightly shorter for better mobile fit */
-    background: linear-gradient(180deg, #3a8a2e, #1e5a18, #2d6b23);
+    height: 250px;
+    background: linear-gradient(180deg, #3a8a2e, #1e5a18);
     border-radius: 5px;
     transform-origin: bottom;
-    animation: growUp 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: growUp 3s ease-out forwards;
     position: relative;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 @keyframes growUp {
@@ -62,168 +60,119 @@ body, html {
 
 /* Tulip Head */
 .head {
-    position: absolute;
-    bottom: 280px; /* Matches stem height */
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    transform-origin: bottom center;
-    animation: bloom 2.2s cubic-bezier(0.34, 1.2, 0.64, 1) 3s forwards,
-                gentleSway 5s ease-in-out infinite 5s;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transform: scale(0);
+    animation: bloom 2s cubic-bezier(0.17, 0.67, 0.83, 0.67) 2.5s forwards;
     z-index: 2;
-    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+    margin-bottom: -5px; /* Pulls head onto the stem */
 }
 
 @keyframes bloom {
-    0% { transform: translateX(-50%) scale(0) translateY(20px); }
-    60% { transform: translateX(-50%) scale(1.05) translateY(-5px); }
-    100% { transform: translateX(-50%) scale(1) translateY(0); }
+    0% { transform: scale(0) translateY(20px); }
+    100% { transform: scale(1) translateY(0); }
 }
 
-@keyframes gentleSway {
-    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
-    50% { transform: translateX(-50%) rotate(2deg); }
-}
-
-/* Petals */
-.petal-back-left {
-    position: absolute;
-    bottom: 0;
-    left: -28px;
-    width: 55px;
-    height: 95px;
-    background: linear-gradient(135deg, #2d8f4a, #046307, #1a6b2f);
-    border-radius: 100% 0 50% 50%;
-    transform: rotate(-20deg);
-    transform-origin: bottom center;
-}
-
-.petal-back-right {
-    position: absolute;
-    bottom: 0;
-    right: -28px;
-    width: 55px;
-    height: 95px;
-    background: linear-gradient(45deg, #2d8f4a, #046307, #1a6b2f);
-    border-radius: 0 100% 50% 50%;
-    transform: rotate(20deg);
-    transform-origin: bottom center;
-}
-
-.petal-front-left {
-    position: absolute;
-    bottom: 0;
-    left: -15px;
-    width: 50px;
-    height: 85px;
-    background: linear-gradient(135deg, #3ca55c, #0e7324, #2a8a42);
-    border-radius: 100% 0 50% 50%;
-    transform: rotate(-8deg);
-    transform-origin: bottom center;
-    z-index: 1;
-}
-
-.petal-front-right {
-    position: absolute;
-    bottom: 0;
-    right: -15px;
-    width: 50px;
-    height: 85px;
-    background: linear-gradient(45deg, #3ca55c, #0e7324, #2a8a42);
-    border-radius: 0 100% 50% 50%;
-    transform: rotate(8deg);
-    transform-origin: bottom center;
-    z-index: 1;
-}
-
+/* Petal Colors and Shapes */
 .petal-center {
-    position: relative;
-    width: 48px;
-    height: 88px;
-    background: linear-gradient(to bottom, #4db86e, #158b33, #0a5c1f);
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 80px;
+    background: linear-gradient(to bottom, #4db86e, #0a5c1f);
     border-radius: 50% 50% 45% 45%;
-    box-shadow: inset -3px -5px 12px rgba(0,0,0,0.3);
-    z-index: 2;
+    z-index: 3;
 }
 
-.petal-center::before {
-    content: '';
+.petal-front-left, .petal-front-right {
     position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 18px;
-    background: radial-gradient(#F4C542, #D4AF37);
-    border-radius: 50%;
+    bottom: 0;
+    width: 45px;
+    height: 75px;
+    background: #2a8a42;
+    border-radius: 50% 50% 50% 50%;
+    z-index: 4;
 }
+
+.petal-front-left { left: -20px; transform: rotate(-15deg); }
+.petal-front-right { right: -20px; transform: rotate(15deg); }
+
+.petal-back-left, .petal-back-right {
+    position: absolute;
+    bottom: 0;
+    width: 45px;
+    height: 85px;
+    background: #046307;
+    border-radius: 50% 50% 50% 50%;
+    z-index: 1;
+}
+
+.petal-back-left { left: -30px; transform: rotate(-30deg); }
+.petal-back-right { right: -30px; transform: rotate(30deg); }
 
 /* --- LEAVES --- */
 .leaf {
     position: absolute;
-    width: 55px;
-    height: 32px;
-    background: linear-gradient(145deg, #3a9a2e, #1e5a18);
+    width: 50px;
+    height: 25px;
+    background: #1e5a18;
     border-radius: 0 100% 0 100%;
     opacity: 0;
-    animation: leafShow 0.9s ease-out forwards;
+    animation: leafShow 1s forwards;
 }
 
-.leaf-left { left: -45px; top: 100px; transform: rotate(-35deg); animation-delay: 1.8s; }
-.leaf-right { right: -45px; top: 60px; transform: rotate(35deg); animation-delay: 2.3s; }
+.leaf-left { left: -45px; top: 80px; transform: rotate(-30deg); animation-delay: 1.5s; }
+.leaf-right { right: -45px; top: 40px; transform: rotate(30deg); animation-delay: 2s; }
 
 @keyframes leafShow {
-    0% { opacity: 0; transform: scale(0); }
-    100% { opacity: 1; transform: scale(1); }
+    to { opacity: 1; }
 }
 
 /* --- TEXT --- */
 .gift-text {
     color: #F4C542;
     font-family: 'Brush Script MT', cursive;
-    font-size: 2.5rem; /* Adjusted for mobile */
-    text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
-    margin-top: 20px;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-top: 100px; /* Space between flower and text */
     opacity: 0;
-    animation: fadeInUp 1.5s forwards 4.5s;
+    animation: fadeIn 1.5s forwards 4s;
     text-align: center;
-    padding: 0 10px;
 }
 
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
 .back-link {
-    color: rgba(244, 197, 66, 0.9);
+    color: #F4C542;
     text-decoration: none;
-    margin-top: 15px;
     font-size: 0.9rem;
+    margin-top: 20px;
+    background: rgba(0,0,0,0.3);
     padding: 8px 20px;
-    border-radius: 30px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(4px);
-    z-index: 10;
+    border-radius: 20px;
 }
 
-/* --- HEART TRAIL --- */
+/* --- TRAIL --- */
 .heart-trail {
     position: absolute;
     pointer-events: none;
-    font-size: 1.2rem;
-    animation: floatUp 1.6s forwards;
-    z-index: 100;
+    font-size: 1.5rem;
+    z-index: 1000;
+    animation: floatUp 1.5s ease-out forwards;
 }
 
 @keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
 }
 
-/* --- MOBILE SPECIFIC --- */
+/* Mobile Fixes */
 @media (max-width: 500px) {
-    .stem { height: 220px; }
-    .head { bottom: 220px; }
-    .gift-text { font-size: 1.8rem; }
-    .tulip-wrapper { transform: scale(0.9); }
+    .stem { height: 180px; }
+    .gift-text { font-size: 1.6rem; margin-top: 80px; }
 }
