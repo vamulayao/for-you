@@ -6,15 +6,13 @@
     <title>An Emerald Tulip for Ninin 💚🌷</title>
     <link rel="stylesheet" href="ninin2.css">
 </head>
+
 <body>
-    <!--<video autoplay muted loop id="bg-video">
-        <source src="assets/polaroid.mp4" type="video/mp4">
-    </video> -->
     <div class="overlay"></div>
 
     <div class="flower-container">
         <div class="tulip-wrapper">
-            <!-- Tulip Head with layered petals -->
+            <!-- Tulip Head -->
             <div class="head">
                 <div class="petal-back-left"></div>
                 <div class="petal-back-right"></div>
@@ -22,7 +20,8 @@
                 <div class="petal-front-right"></div>
                 <div class="petal-center"></div>
             </div>
-            <!-- Stem with leaves -->
+
+            <!-- Stem -->
             <div class="stem">
                 <div class="leaf leaf-left"></div>
                 <div class="leaf leaf-right"></div>
@@ -30,25 +29,31 @@
                 <div class="leaf leaf-right-lower"></div>
             </div>
         </div>
-        
+
         <h2 class="gift-text">🫶 An Emerald Tulip for Ninin 🫶</h2>
         <a href="ninin1.html" class="back-link">← Back to the Pictures</a>
     </div>
 
     <script>
-        // Heart trail with multiple emojis
-        const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
-        
-        document.addEventListener('mousemove', (e) => {
-            const trail = document.createElement('div');
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-            trail.innerHTML = randomEmoji;
-            trail.className = 'heart-trail';
-            trail.style.left = e.pageX + 'px';
-            trail.style.top = e.pageY + 'px';
-            document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 1600);
-        });
+        // Heart / emoji trail (desktop only for performance)
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        if (!isMobile) {
+            const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
+
+            document.addEventListener('mousemove', (e) => {
+                const trail = document.createElement('div');
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+                trail.innerHTML = randomEmoji;
+                trail.className = 'heart-trail';
+                trail.style.left = e.pageX + 'px';
+                trail.style.top = e.pageY + 'px';
+
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 1600);
+            });
+        }
     </script>
 </body>
 </html>
