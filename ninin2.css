@@ -1,1 +1,229 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
 
+#bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(46, 204, 113, 0.2));
+    z-index: 0;
+}
+
+.flower-container {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Anchors flower to bottom on mobile */
+    align-items: center;
+    padding-bottom: 80px; /* Space for the link */
+    box-sizing: border-box;
+}
+
+/* --- THE TULIP --- */
+.tulip-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Stem */
+.stem {
+    width: 10px;
+    height: 280px; /* Slightly shorter for better mobile fit */
+    background: linear-gradient(180deg, #3a8a2e, #1e5a18, #2d6b23);
+    border-radius: 5px;
+    transform-origin: bottom;
+    animation: growUp 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+@keyframes growUp {
+    0% { transform: scaleY(0); }
+    100% { transform: scaleY(1); }
+}
+
+/* Tulip Head */
+.head {
+    position: absolute;
+    bottom: 280px; /* Matches stem height */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    animation: bloom 2.2s cubic-bezier(0.34, 1.2, 0.64, 1) 3s forwards,
+                gentleSway 5s ease-in-out infinite 5s;
+    z-index: 2;
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+}
+
+@keyframes bloom {
+    0% { transform: translateX(-50%) scale(0) translateY(20px); }
+    60% { transform: translateX(-50%) scale(1.05) translateY(-5px); }
+    100% { transform: translateX(-50%) scale(1) translateY(0); }
+}
+
+@keyframes gentleSway {
+    0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+    50% { transform: translateX(-50%) rotate(2deg); }
+}
+
+/* Petals */
+.petal-back-left {
+    position: absolute;
+    bottom: 0;
+    left: -28px;
+    width: 55px;
+    height: 95px;
+    background: linear-gradient(135deg, #2d8f4a, #046307, #1a6b2f);
+    border-radius: 100% 0 50% 50%;
+    transform: rotate(-20deg);
+    transform-origin: bottom center;
+}
+
+.petal-back-right {
+    position: absolute;
+    bottom: 0;
+    right: -28px;
+    width: 55px;
+    height: 95px;
+    background: linear-gradient(45deg, #2d8f4a, #046307, #1a6b2f);
+    border-radius: 0 100% 50% 50%;
+    transform: rotate(20deg);
+    transform-origin: bottom center;
+}
+
+.petal-front-left {
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    width: 50px;
+    height: 85px;
+    background: linear-gradient(135deg, #3ca55c, #0e7324, #2a8a42);
+    border-radius: 100% 0 50% 50%;
+    transform: rotate(-8deg);
+    transform-origin: bottom center;
+    z-index: 1;
+}
+
+.petal-front-right {
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+    width: 50px;
+    height: 85px;
+    background: linear-gradient(45deg, #3ca55c, #0e7324, #2a8a42);
+    border-radius: 0 100% 50% 50%;
+    transform: rotate(8deg);
+    transform-origin: bottom center;
+    z-index: 1;
+}
+
+.petal-center {
+    position: relative;
+    width: 48px;
+    height: 88px;
+    background: linear-gradient(to bottom, #4db86e, #158b33, #0a5c1f);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: inset -3px -5px 12px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.petal-center::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(#F4C542, #D4AF37);
+    border-radius: 50%;
+}
+
+/* --- LEAVES --- */
+.leaf {
+    position: absolute;
+    width: 55px;
+    height: 32px;
+    background: linear-gradient(145deg, #3a9a2e, #1e5a18);
+    border-radius: 0 100% 0 100%;
+    opacity: 0;
+    animation: leafShow 0.9s ease-out forwards;
+}
+
+.leaf-left { left: -45px; top: 100px; transform: rotate(-35deg); animation-delay: 1.8s; }
+.leaf-right { right: -45px; top: 60px; transform: rotate(35deg); animation-delay: 2.3s; }
+
+@keyframes leafShow {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- TEXT --- */
+.gift-text {
+    color: #F4C542;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.5rem; /* Adjusted for mobile */
+    text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeInUp 1.5s forwards 4.5s;
+    text-align: center;
+    padding: 0 10px;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.back-link {
+    color: rgba(244, 197, 66, 0.9);
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    padding: 8px 20px;
+    border-radius: 30px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+/* --- HEART TRAIL --- */
+.heart-trail {
+    position: absolute;
+    pointer-events: none;
+    font-size: 1.2rem;
+    animation: floatUp 1.6s forwards;
+    z-index: 100;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+}
+
+/* --- MOBILE SPECIFIC --- */
+@media (max-width: 500px) {
+    .stem { height: 220px; }
+    .head { bottom: 220px; }
+    .gift-text { font-size: 1.8rem; }
+    .tulip-wrapper { transform: scale(0.9); }
+}
