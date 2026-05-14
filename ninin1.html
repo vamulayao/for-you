@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>For My Ninin</title>
+
     <link rel="stylesheet" href="ninin1.css">
 </head>
+
 <body>
 
-    <!-- VIDEO BACKGROUND -->
+    <!-- VIDEO -->
     <!--
     <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
         <source src="assets/polaroid.mp4" type="video/mp4">
@@ -19,84 +22,108 @@
 
     <div class="scrapbook-container">
 
-        <h1 class="title">Happy 23rd Birthday Binibini!</h1>
+        <h1 class="title">
+            Happy 23rd Birthday Binibini!
+        </h1>
 
         <div class="grid">
 
-            <!-- FIRST POLAROID -->
-<div class="polaroid-card tilt-left" id="card1">
+            <!-- FIRST CARD -->
+            <div class="polaroid-card tilt-left" id="card1">
 
-    <div class="card-inner">
+                <div class="card-inner">
 
-        <div class="card-front">
-            <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
+                    <!-- FRONT -->
+                    <div class="card-front">
 
-            <p class="caption">
-                05 / 14 / 2026<br>🫶
-            </p>
-        </div>
+                        <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
 
-        <div class="card-back">
-            <h3>Dearest Ninin,</h3>
+                        <p class="caption">
+                            05 / 14 / 2026<br>🫶
+                        </p>
 
-            <p class="letter-text">
-                So Ninin, before this day ends, again happy birthday po!! 
-                Thank you sa pag-entertain at pagbigay ng chance kay Eytan.
-            </p>
+                    </div>
+
+                    <!-- BACK -->
+                    <div class="card-back">
+
+                        <h3>Dearest Ninin,</h3>
+
+                        <p class="letter-text">
+                            So Ninin, before this day ends, again happy birthday po!! 
+                            Thank you sa pag-entertain at pagbigay ng chance kay Eytan.
+                            I'm so thankful to have you po.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECOND CARD -->
+            <div class="polaroid-card tilt-right" id="card2">
+
+                <div class="card-inner">
+
+                    <!-- FRONT -->
+                    <div class="card-front">
+
+                        <img src="assets/download.jpg" alt="Us">
+
+                        <p class="caption">
+                            05 / 14 / 2026<br>🫶
+                        </p>
+
+                    </div>
+
+                    <!-- BACK -->
+                    <div class="card-back">
+
+                        <p class="letter-text">
+                            Thank you for understanding our situation Ninin.
+                            I will always be here po.
+                        </p>
+
+                        <a href="ninin2.html" class="final-btn">
+                            Open My Gift
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
-</div>
 
-<!-- SECOND POLAROID -->
-<div class="polaroid-card tilt-right" id="card2">
+    <script>
 
-    <div class="card-inner">
+        // FIRST CARD
+        const card1 = document.getElementById("card1");
 
-        <div class="card-front">
-            <img src="assets/download.jpg" alt="Us">
+        card1.addEventListener("click", function (e) {
 
-            <p class="caption">
-                05 / 14 / 2026<br>🫶
-            </p>
-        </div>
+            e.stopPropagation();
 
-        <div class="card-back">
+            card1.classList.toggle("flipped");
 
-            <p class="letter-text">
-                Thank you for understanding our situation Ninin.
-            </p>
+        });
 
-            <a href="ninin2.html" class="final-btn">
-                Open My Gift
-            </a>
+        // SECOND CARD
+        const card2 = document.getElementById("card2");
 
-        </div>
+        card2.addEventListener("click", function (e) {
 
-    </div>
-</div>
+            e.stopPropagation();
 
-        </div>
-    </div>
+            card2.classList.toggle("flipped");
 
-    <!-- FLIP SCRIPT -->
-<script>
+        });
 
-    // CARD 1
-    const card1 = document.getElementById("card1");
-
-    card1.addEventListener("click", function () {
-        card1.classList.toggle("flipped");
-    });
-
-    // CARD 2
-    const card2 = document.getElementById("card2");
-
-    card2.addEventListener("click", function () {
-        card2.classList.toggle("flipped");
-    });
-
-</script>
+    </script>
 
 </body>
 </html>
