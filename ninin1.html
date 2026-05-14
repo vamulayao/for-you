@@ -99,31 +99,46 @@
 
     </div>
 
-    <script>
+<script>
 
-        // FIRST CARD
-        const card1 = document.getElementById("card1");
+    const card1 = document.getElementById("card1");
+    const card2 = document.getElementById("card2");
 
-        card1.addEventListener("click", function (e) {
+    // CARD 1
+    card1.addEventListener("click", function (e) {
 
-            e.stopPropagation();
+        e.stopPropagation();
 
-            card1.classList.toggle("flipped");
+        // close card 2 first
+        card2.classList.remove("flipped");
 
-        });
+        // toggle card 1
+        card1.classList.toggle("flipped");
 
-        // SECOND CARD
-        const card2 = document.getElementById("card2");
+    });
 
-        card2.addEventListener("click", function (e) {
+    // CARD 2
+    card2.addEventListener("click", function (e) {
 
-            e.stopPropagation();
+        e.stopPropagation();
 
-            card2.classList.toggle("flipped");
+        // close card 1 first
+        card1.classList.remove("flipped");
 
-        });
+        // toggle card 2
+        card2.classList.toggle("flipped");
 
-    </script>
+    });
+
+    // click outside closes all
+    document.addEventListener("click", function () {
+
+        card1.classList.remove("flipped");
+        card2.classList.remove("flipped");
+
+    });
+
+</script>
 
 </body>
 </html>
