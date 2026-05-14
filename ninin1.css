@@ -232,3 +232,18 @@ body, html {
         font-size: 0.76rem;
     }
 }
+
+/* MOBILE FIX FOR 3D FLIP BUG */
+.polaroid-card {
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+.card-inner {
+    will-change: transform;
+}
+
+.card-front,
+.card-back {
+    overflow: hidden;
+}
