@@ -5,26 +5,29 @@ body, html {
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
     color: white;
-    background-color: #009B77; /* Fallback */
+    background-color: #009B77;
 }
 
-/*#bg-video {
+/* VIDEO */
+/*
+#bg-video {
     position: fixed;
     inset: 0;
     min-width: 100%;
     min-height: 100%;
-    z-index: -1;
     object-fit: cover;
+    z-index: -1;
 }
 */
 
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 155, 119, 0.4); 
+    background: rgba(0, 155, 119, 0.4);
     z-index: 0;
 }
 
+/* MAIN CONTAINER */
 .scrapbook-container {
     position: relative;
     z-index: 1;
@@ -34,30 +37,44 @@ body, html {
     align-items: center;
 }
 
+/* TITLE */
 .title {
     color: #F4C542;
-    font-size: 2.5rem; /* Balanced for mobile/desktop */
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
     margin-bottom: 30px;
     text-align: center;
 }
 
+/* GRID */
 .grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
-    perspective: 1500px;
     width: 100%;
 }
 
+/* POLAROID CARD */
 .polaroid-card {
-    width: 340px; /* Slightly smaller to fit more screens */
+    width: 340px;
     height: 480px;
-    cursor: pointer;
     position: relative;
+    cursor: pointer;
+    perspective: 1500px;
+    transition: transform 0.3s ease;
 }
 
+/* TILT */
+.tilt-left {
+    transform: rotate(-2deg);
+}
+
+.tilt-right {
+    transform: rotate(2deg);
+}
+
+/* CARD INNER */
 .card-inner {
     position: relative;
     width: 100%;
@@ -66,33 +83,37 @@ body, html {
     transform-style: preserve-3d;
 }
 
-/* Flip Logic: Works on Hover (Desktop) and Toggle (Mobile) */
-.polaroid-card:hover .card-inner, 
+/* FLIP */
+.polaroid-card:hover .card-inner,
 .polaroid-card.flipped .card-inner {
     transform: rotateY(180deg);
 }
 
-.tilt-left .card-inner { transform: rotate(-2deg); }
-.tilt-right .card-inner { transform: rotate(2deg); }
-
-.card-front, .card-back {
+/* FRONT + BACK */
+.card-front,
+.card-back {
     position: absolute;
     inset: 0;
-    backface-visibility: hidden;
     background: white;
     padding: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    border-radius: 2px;
+    border-radius: 8px;
     box-sizing: border-box;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
+/* FRONT IMAGE */
 .card-front img {
     width: 100%;
     height: 320px;
     object-fit: cover;
     border: 1px solid #eee;
+    border-radius: 4px;
 }
 
+/* CAPTION */
 .caption {
     font-family: 'Brush Script MT', cursive;
     font-size: 1.8rem;
@@ -102,24 +123,29 @@ body, html {
     line-height: 1.2;
 }
 
+/* BACK */
 .card-back {
     background: #F4C542;
     transform: rotateY(180deg);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     color: #1e8449;
-    padding: 25px;
     text-align: center;
+    padding: 25px;
 }
 
+/* LETTER */
 .letter-text {
     font-size: 0.95rem;
     line-height: 1.5;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
+/* BUTTON */
 .final-btn {
     background: #D4AF37;
     color: white;
@@ -131,19 +157,80 @@ body, html {
     transition: 0.3s;
 }
 
-/* --- MOBILE RESPONSIVE --- */
-@media (max-width: 400px) {
+.final-btn:hover {
+    background: #c89b1e;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 768px) {
+
+    .grid {
+        gap: 25px;
+    }
+
     .polaroid-card {
-        width: 290px;
-        height: 420px;
+        width: 300px;
+        height: 440px;
     }
+
     .card-front img {
-        height: 250px;
+        height: 280px;
     }
-    .title {
-        font-size: 1.8rem;
-    }
+
     .letter-text {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 480px) {
+
+    .title {
+        font-size: 1.7rem;
+    }
+
+    .polaroid-card {
+        width: 280px;
+        height: 410px;
+    }
+
+    .card-front img {
+        height: 240px;
+    }
+
+    .caption {
+        font-size: 1.5rem;
+    }
+
+    .letter-text {
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+
+    .final-btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+/* VERY SMALL DEVICES */
+@media (max-width: 360px) {
+
+    .polaroid-card {
+        width: 250px;
+        height: 390px;
+    }
+
+    .card-front img {
+        height: 210px;
+    }
+
+    .letter-text {
+        font-size: 0.76rem;
     }
 }
