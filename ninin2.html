@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="ninin2.css">
 </head>
 <body>
-    <!-- Video Background - Playsinline for iOS/Android 
+    <!-- Video Background -->
     <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
         <source src="assets/polaroid.mp4" type="video/mp4">
-    </video>-->
+    </video>
     <div class="overlay"></div>
 
     <div class="flower-container">
         <div class="tulip-wrapper">
-            <!-- Tulip Head with layered petals -->
+            <!-- Tulip Head -->
             <div class="head">
                 <div class="petal-back-left"></div>
                 <div class="petal-back-right"></div>
@@ -39,7 +39,7 @@
     <script>
         const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
         
-        function createTrail(x, y) {
+        function spawnEmoji(x, y) {
             const trail = document.createElement('div');
             const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
             trail.innerHTML = randomEmoji;
@@ -47,20 +47,23 @@
             trail.style.left = x + 'px';
             trail.style.top = y + 'px';
             document.body.appendChild(trail);
-            setTimeout(() => trail.remove(), 1600);
+            
+            // Remove element after animation to keep the phone fast
+            setTimeout(() => {
+                trail.remove();
+            }, 1500);
         }
 
-        // Mouse Support
+        // Desktop Mouse Trail
         document.addEventListener('mousemove', (e) => {
-            createTrail(e.pageX, e.pageY);
+            spawnEmoji(e.pageX, e.pageY);
         });
 
-        // Mobile Touch Support
+        // Mobile Touch Trail
         document.addEventListener('touchmove', (e) => {
-            // Prevents screen scrolling while drawing hearts
             const touch = e.touches[0];
-            createTrail(touch.pageX, touch.pageY);
-        }, {passive: true});
+            spawnEmoji(touch.pageX, touch.pageY);
+        }, { passive: true });
     </script>
 </body>
 </html>
