@@ -1,178 +1,343 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-#bg-video {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+body{
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    height:100vh;
+    width:100%;
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(46, 204, 113, 0.2));
-    z-index: 0;
+/* BACKGROUND */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(
+        135deg,
+        #021b14,
+        #064e3b,
+        #0f766e,
+        #14532d
+    );
+
+    background-size:400% 400%;
+
+    animation:bgMove 12s ease infinite;
 }
 
-.flower-container {
-    position: relative;
-    z-index: 1;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 50px; /* Space for the flower to bloom upwards */
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-/* --- THE TULIP --- */
-.tulip-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+/* MAIN */
+
+.flower-container{
+    position:relative;
+    z-index:2;
+
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
 
-/* Stem */
-.stem {
-    width: 10px;
-    height: 250px;
-    background: linear-gradient(180deg, #3a8a2e, #1e5a18);
-    border-radius: 5px;
-    transform-origin: bottom;
-    animation: growUp 3s ease-out forwards;
-    position: relative;
+/* TULIP */
+
+.tulip-wrapper{
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    animation:floatFlower 4s ease-in-out infinite;
 }
 
-@keyframes growUp {
-    0% { transform: scaleY(0); }
-    100% { transform: scaleY(1); }
+@keyframes floatFlower{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0px);}
 }
 
-/* Tulip Head */
-.head {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    transform: scale(0);
-    animation: bloom 2s cubic-bezier(0.17, 0.67, 0.83, 0.67) 2.5s forwards;
-    z-index: 2;
-    margin-bottom: -5px; /* Pulls head onto the stem */
+/* HEAD */
+
+.head{
+    position:relative;
+
+    width:140px;
+    height:140px;
+
+    animation:bloom 2.5s ease forwards;
+
+    transform:scale(0);
+    transform-origin:bottom;
 }
 
-@keyframes bloom {
-    0% { transform: scale(0) translateY(20px); }
-    100% { transform: scale(1) translateY(0); }
+@keyframes bloom{
+    to{
+        transform:scale(1);
+    }
 }
 
-/* Petal Colors and Shapes */
-.petal-center {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 45px;
-    height: 80px;
-    background: linear-gradient(to bottom, #4db86e, #0a5c1f);
-    border-radius: 50% 50% 45% 45%;
-    z-index: 3;
+/* PETALS */
+
+.petal{
+    position:absolute;
+    border-radius:50% 50% 40% 40%;
+    bottom:0;
+
+    box-shadow:
+    0 0 20px rgba(46, 255, 151, 0.4);
 }
 
-.petal-front-left, .petal-front-right {
-    position: absolute;
-    bottom: 0;
-    width: 45px;
-    height: 75px;
-    background: #2a8a42;
-    border-radius: 50% 50% 50% 50%;
-    z-index: 4;
+.center{
+    width:70px;
+    height:110px;
+
+    left:35px;
+
+    background:linear-gradient(
+        to bottom,
+        #7fffd4,
+        #10b981
+    );
+
+    z-index:5;
 }
 
-.petal-front-left { left: -20px; transform: rotate(-15deg); }
-.petal-front-right { right: -20px; transform: rotate(15deg); }
+.front-left{
+    width:65px;
+    height:95px;
 
-.petal-back-left, .petal-back-right {
-    position: absolute;
-    bottom: 0;
-    width: 45px;
-    height: 85px;
-    background: #046307;
-    border-radius: 50% 50% 50% 50%;
-    z-index: 1;
+    background:#34d399;
+
+    left:10px;
+
+    transform:rotate(-18deg);
+
+    z-index:6;
 }
 
-.petal-back-left { left: -30px; transform: rotate(-30deg); }
-.petal-back-right { right: -30px; transform: rotate(30deg); }
+.front-right{
+    width:65px;
+    height:95px;
 
-/* --- LEAVES --- */
-.leaf {
-    position: absolute;
-    width: 50px;
-    height: 25px;
-    background: #1e5a18;
-    border-radius: 0 100% 0 100%;
-    opacity: 0;
-    animation: leafShow 1s forwards;
+    background:#34d399;
+
+    right:10px;
+
+    transform:rotate(18deg);
+
+    z-index:6;
 }
 
-.leaf-left { left: -45px; top: 80px; transform: rotate(-30deg); animation-delay: 1.5s; }
-.leaf-right { right: -45px; top: 40px; transform: rotate(30deg); animation-delay: 2s; }
+.back-left{
+    width:60px;
+    height:100px;
 
-@keyframes leafShow {
-    to { opacity: 1; }
+    background:#047857;
+
+    left:0;
+
+    transform:rotate(-35deg);
+
+    z-index:2;
 }
 
-/* --- TEXT --- */
-.gift-text {
-    color: #F4C542;
-    font-family: 'Brush Script MT', cursive;
-    font-size: 2.2rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    margin-top: 100px; /* Space between flower and text */
-    opacity: 0;
-    animation: fadeIn 1.5s forwards 4s;
-    text-align: center;
+.back-right{
+    width:60px;
+    height:100px;
+
+    background:#047857;
+
+    right:0;
+
+    transform:rotate(35deg);
+
+    z-index:2;
 }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
+/* STEM */
+
+.stem{
+    position:relative;
+
+    width:12px;
+    height:280px;
+
+    background:linear-gradient(
+        to bottom,
+        #4ade80,
+        #14532d
+    );
+
+    border-radius:20px;
+
+    margin-top:-5px;
+
+    animation:growStem 2s ease forwards;
+
+    transform:scaleY(0);
+    transform-origin:top;
 }
 
-.back-link {
-    color: #F4C542;
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-top: 20px;
-    background: rgba(0,0,0,0.3);
-    padding: 8px 20px;
-    border-radius: 20px;
+@keyframes growStem{
+    to{
+        transform:scaleY(1);
+    }
 }
 
-/* --- TRAIL --- */
-.heart-trail {
-    position: absolute;
-    pointer-events: none;
-    font-size: 1.5rem;
-    z-index: 1000;
-    animation: floatUp 1.5s ease-out forwards;
+/* LEAVES */
+
+.leaf{
+    position:absolute;
+
+    width:90px;
+    height:40px;
+
+    background:linear-gradient(
+        to right,
+        #22c55e,
+        #166534
+    );
+
+    border-radius:0 100% 0 100%;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100px); opacity: 0; }
+/* TOP LEAVES */
+
+.left{
+    left:-80px;
+    top:70px;
+
+    transform:rotate(-35deg);
 }
 
-/* Mobile Fixes */
-@media (max-width: 500px) {
-    .stem { height: 180px; }
-    .gift-text { font-size: 1.6rem; margin-top: 80px; }
+.right{
+    right:-80px;
+    top:120px;
+
+    transform:rotate(35deg) scaleX(-1);
+}
+
+/* LOWER LEAVES */
+
+.lower-left{
+    left:-70px;
+    top:180px;
+
+    transform:rotate(-15deg);
+}
+
+.lower-right{
+    right:-70px;
+    top:220px;
+
+    transform:rotate(15deg) scaleX(-1);
+}
+
+/* TEXT */
+
+.gift-text{
+    margin-top:60px;
+
+    color:#fef3c7;
+
+    font-size:2.3rem;
+    font-weight:600;
+
+    text-align:center;
+
+    text-shadow:
+    0 0 10px rgba(255,255,255,0.2),
+    0 0 25px rgba(16,185,129,0.5);
+
+    opacity:0;
+
+    animation:fadeText 2s ease forwards;
+    animation-delay:2s;
+}
+
+@keyframes fadeText{
+    to{
+        opacity:1;
+    }
+}
+
+.back-link{
+    margin-top:20px;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:10px 22px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,0.1);
+
+    backdrop-filter:blur(10px);
+
+    transition:0.3s;
+}
+
+.back-link:hover{
+    transform:scale(1.05);
+
+    background:rgba(255,255,255,0.2);
+}
+
+/* EMOJI TRAIL */
+
+.trail{
+    position:absolute;
+
+    pointer-events:none;
+
+    font-size:1.5rem;
+
+    animation:trailFloat 1.5s ease forwards;
+}
+
+@keyframes trailFloat{
+    0%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+    100%{
+        opacity:0;
+        transform:translateY(-80px) scale(1.8);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    .head{
+        width:110px;
+        height:110px;
+    }
+
+    .stem{
+        height:220px;
+    }
+
+    .gift-text{
+        font-size:1.6rem;
+        padding:0 20px;
+    }
+
 }
