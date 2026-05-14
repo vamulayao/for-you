@@ -7,50 +7,104 @@
     <link rel="stylesheet" href="ninin1.css">
 </head>
 <body>
-    <!-- 
-    Video Background - Playsinline added for mobile support
+
+    <!-- VIDEO BACKGROUND -->
+    <!--
     <video autoplay muted loop playsinline webkit-playsinline id="bg-video">
         <source src="assets/polaroid.mp4" type="video/mp4">
     </video>
-     -->
+    -->
+
     <div class="overlay"></div>
-    
+
     <div class="scrapbook-container">
+
         <h1 class="title">Happy 23rd Birthday Binibini!</h1>
-        
+
         <div class="grid">
-            <!-- First Polaroid -->
-            <div class="polaroid-card tilt-left" onclick="this.classList.toggle('flipped')">
+
+            <!-- FIRST POLAROID -->
+            <div class="polaroid-card tilt-left">
+
                 <div class="card-inner">
+
+                    <!-- FRONT -->
                     <div class="card-front">
                         <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
-                        <p class="caption">05 / 14 / 2026<br>🫶</p>
-                    </div>
-                    <div class="card-back">
-                        <h3>Dearest Ninin,</h3>
-                        <p class="letter-text">
-                            So Ninin, before this day ends, again happy birthday po!! Thank you sa pag-entertain at pagbigay ng chance kay Eytan. I'm so thankful to have you po. Even though ganito palang tayo, thank you sa trust na binigay mo kay Eytan and I won't promise kasi promises are meant to be broken. So I will try my hardest na hindi masira at masayang ang trust mo. Continuation sa next pic...
+
+                        <p class="caption">
+                            05 / 14 / 2026<br>🫶
                         </p>
                     </div>
+
+                    <!-- BACK -->
+                    <div class="card-back">
+                        <h3>Dearest Ninin,</h3>
+
+                        <p class="letter-text">
+                            So Ninin, before this day ends, again happy birthday po!! 
+                            Thank you sa pag-entertain at pagbigay ng chance kay Eytan. 
+                            I'm so thankful to have you po. Even though ganito palang tayo, 
+                            thank you sa trust na binigay mo kay Eytan and I won't promise 
+                            kasi promises are meant to be broken. So I will try my hardest 
+                            na hindi masira at masayang ang trust mo. Continuation sa next pic...
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Second Polaroid -->
-            <div class="polaroid-card tilt-right" onclick="this.classList.toggle('flipped')">
+            <!-- SECOND POLAROID -->
+            <div class="polaroid-card tilt-right">
+
                 <div class="card-inner">
+
+                    <!-- FRONT -->
                     <div class="card-front">
                         <img src="assets/download.jpg" alt="Us">
-                        <p class="caption">05 / 14 / 2026<br>🫶</p>
-                    </div>
-                    <div class="card-back">
-                        <p class="letter-text">
-                            Thank you for understanding our situation Ninin, I often get insecure to others kasi di ko ikaw na t-treat the way I wanted to pero still genuine ka na happy sa akin. Thank you for all kahit nagstart palang tayo and we have a long way to go. I wish all the best for you Ninin ko, sana matupad mo lahat ng pangarap mo, maging successful ikaw. You've been a brave girl keep it up po. I will always be here Ninin.
+
+                        <p class="caption">
+                            05 / 14 / 2026<br>🫶
                         </p>
-                        <a href="ninin2.html" class="final-btn">Open My Gift</a>
                     </div>
+
+                    <!-- BACK -->
+                    <div class="card-back">
+
+                        <p class="letter-text">
+                            Thank you for understanding our situation Ninin, 
+                            I often get insecure to others kasi di ko ikaw 
+                            na t-treat the way I wanted to pero still genuine 
+                            ka na happy sa akin. Thank you for all kahit 
+                            nagstart palang tayo and we have a long way to go. 
+                            I wish all the best for you Ninin ko, sana matupad 
+                            mo lahat ng pangarap mo, maging successful ikaw. 
+                            You've been a brave girl keep it up po. 
+                            I will always be here Ninin.
+                        </p>
+
+                        <a href="ninin2.html" class="final-btn">
+                            Open My Gift
+                        </a>
+
+                    </div>
+
                 </div>
             </div>
+
         </div>
     </div>
+
+    <!-- FLIP SCRIPT -->
+    <script>
+        const cards = document.querySelectorAll('.polaroid-card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+    </script>
+
 </body>
 </html>
