@@ -10,136 +10,199 @@
             padding: 0;
             height: 100%;
             font-family: 'Segoe UI', 'Arial', sans-serif;
-            background: linear-gradient(to top, #0a2a1a, #1a5a2a);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Remove complex overlays for testing */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(46, 204, 113, 0.2));
+            z-index: 0;
+        }
+
         .flower-container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
+            padding-bottom: 60px;
         }
 
-        /* Simple tulip wrapper */
         .tulip-wrapper {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
-        /* Stem - visible immediately */
+        /* Stem - using transition instead of animation for better PC compatibility */
         .stem {
-            width: 12px;
-            height: 300px;
-            background: linear-gradient(180deg, #3a8a2e, #1e5a18);
-            border-radius: 6px;
+            width: 10px;
+            height: 0px;
+            background: linear-gradient(180deg, #3a8a2e, #1e5a18, #2d6b23);
+            border-radius: 5px;
+            transition: height 3.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* When page loads, stem grows */
+        .stem.grown {
+            height: 320px;
         }
 
-        /* Tulip Head - visible immediately */
+        /* Tulip Head */
         .head {
             position: absolute;
-            bottom: 300px;
+            bottom: 0px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) scale(0);
+            transform-origin: bottom center;
+            transition: transform 2.2s cubic-bezier(0.34, 1.2, 0.64, 1);
             z-index: 2;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+        }
+        
+        /* When page loads, tulip blooms */
+        .head.bloomed {
+            transform: translateX(-50%) scale(1);
+            bottom: 320px;
+        }
+        
+        /* Sway animation - using JavaScript for better PC compatibility */
+        .head.swaying {
+            animation: gentleSway 5s ease-in-out infinite;
         }
 
-        /* Petals - visible immediately with bright colors */
+        @keyframes gentleSway {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); bottom: 320px; }
+            50% { transform: translateX(-50%) rotate(2deg); bottom: 320px; }
+        }
+
+        /* Emerald Tulip Petals */
         .petal-back-left {
             position: absolute;
             bottom: 0;
-            left: -30px;
-            width: 58px;
-            height: 98px;
-            background: #2d8f4a;
+            left: -28px;
+            width: 55px;
+            height: 95px;
+            background: linear-gradient(135deg, #2d8f4a, #046307, #1a6b2f);
             border-radius: 100% 0 50% 50%;
             transform: rotate(-20deg);
-            border: 1px solid #0a5c1f;
+            transform-origin: bottom center;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
         }
 
         .petal-back-right {
             position: absolute;
             bottom: 0;
-            right: -30px;
-            width: 58px;
-            height: 98px;
-            background: #2d8f4a;
+            right: -28px;
+            width: 55px;
+            height: 95px;
+            background: linear-gradient(45deg, #2d8f4a, #046307, #1a6b2f);
             border-radius: 0 100% 50% 50%;
             transform: rotate(20deg);
-            border: 1px solid #0a5c1f;
+            transform-origin: bottom center;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.2);
         }
 
         .petal-front-left {
             position: absolute;
             bottom: 0;
-            left: -18px;
-            width: 52px;
-            height: 88px;
-            background: #3ca55c;
+            left: -15px;
+            width: 50px;
+            height: 85px;
+            background: linear-gradient(135deg, #3ca55c, #0e7324, #2a8a42);
             border-radius: 100% 0 50% 50%;
             transform: rotate(-8deg);
+            transform-origin: bottom center;
             z-index: 1;
-            border: 1px solid #0a5c1f;
         }
 
         .petal-front-right {
             position: absolute;
             bottom: 0;
-            right: -18px;
-            width: 52px;
-            height: 88px;
-            background: #3ca55c;
+            right: -15px;
+            width: 50px;
+            height: 85px;
+            background: linear-gradient(45deg, #3ca55c, #0e7324, #2a8a42);
             border-radius: 0 100% 50% 50%;
             transform: rotate(8deg);
+            transform-origin: bottom center;
             z-index: 1;
-            border: 1px solid #0a5c1f;
         }
 
         .petal-center {
             position: relative;
-            width: 50px;
-            height: 90px;
-            background: #4db86e;
+            width: 48px;
+            height: 88px;
+            background: linear-gradient(to bottom, #4db86e, #158b33, #0a5c1f);
             border-radius: 50% 50% 45% 45%;
-            border: 1px solid #0a5c1f;
+            box-shadow: inset -3px -5px 12px rgba(0,0,0,0.3), inset 2px 2px 8px rgba(255,255,255,0.2);
+            z-index: 2;
         }
 
         .petal-center::before {
-            content: '✨';
+            content: '';
             position: absolute;
-            top: 10px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 16px;
+            width: 12px;
+            height: 18px;
+            background: radial-gradient(#F4C542, #D4AF37);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(244,197,66,0.6);
         }
 
-        /* Leaves */
+        .petal-center::after {
+            content: '✨';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Leaves - using transitions */
         .leaf {
             position: absolute;
             width: 55px;
             height: 32px;
-            background: #3a9a2e;
+            background: linear-gradient(145deg, #3a9a2e, #1e5a18);
             border-radius: 0 100% 0 100%;
-            border: 1px solid #1e5a18;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.9s ease-out;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+        }
+
+        .leaf.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .leaf-left {
             left: -45px;
             top: 160px;
-            transform: rotate(-35deg);
+            transform: rotate(-35deg) scale(0);
+        }
+        .leaf-left.visible {
+            transform: rotate(-35deg) scale(1);
         }
 
         .leaf-right {
             right: -45px;
             top: 90px;
-            transform: rotate(35deg);
+            transform: rotate(35deg) scale(0);
+        }
+        .leaf-right.visible {
+            transform: rotate(35deg) scale(1);
         }
 
         .leaf-left-lower {
@@ -147,7 +210,11 @@
             top: 240px;
             width: 45px;
             height: 26px;
-            transform: rotate(-20deg);
+            transform: rotate(-20deg) scale(0);
+            background: linear-gradient(145deg, #2d8522, #165012);
+        }
+        .leaf-left-lower.visible {
+            transform: rotate(-20deg) scale(1);
         }
 
         .leaf-right-lower {
@@ -155,40 +222,58 @@
             top: 210px;
             width: 45px;
             height: 26px;
-            transform: rotate(25deg);
+            transform: rotate(25deg) scale(0);
+            background: linear-gradient(145deg, #2d8522, #165012);
+        }
+        .leaf-right-lower.visible {
+            transform: rotate(25deg) scale(1);
         }
 
         /* Text */
         .gift-text {
             color: #F4C542;
-            font-family: 'Brush Script MT', cursive;
-            font-size: 3rem;
+            font-family: 'Brush Script MT', 'Segoe UI', cursive;
+            font-size: clamp(1.8rem, 6vw, 3.2rem);
             text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
-            margin: 30px 0 20px;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease-out;
+            letter-spacing: 1px;
             text-align: center;
+        }
+
+        .gift-text.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .back-link {
             color: rgba(244, 197, 66, 0.8);
             text-decoration: none;
-            padding: 8px 20px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            padding: 6px 18px;
             border-radius: 30px;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
             transition: all 0.3s ease;
         }
 
         .back-link:hover {
-            background: rgba(244, 197, 66, 0.4);
             color: white;
+            background: rgba(244, 197, 66, 0.4);
+            transform: translateY(-2px);
         }
 
         /* Heart trail */
         .heart-trail {
             position: absolute;
             pointer-events: none;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             animation: floatUp 1.6s forwards;
-            z-index: 1000;
+            z-index: 100;
+            filter: drop-shadow(0 0 4px rgba(255,80,80,0.5));
         }
 
         @keyframes floatUp {
@@ -197,27 +282,15 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100px) scale(0.5);
+                transform: translateY(-100px) scale(0.6);
                 opacity: 0;
             }
-        }
-
-        /* Debug panel - shows if CSS is loading */
-        .debug {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: black;
-            color: lime;
-            padding: 5px 10px;
-            font-size: 11px;
-            font-family: monospace;
-            z-index: 9999;
-            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+    <div class="overlay"></div>
+
     <div class="flower-container">
         <div class="tulip-wrapper">
             <div class="head">
@@ -239,27 +312,48 @@
         <a href="ninin1.html" class="back-link">← Back to the Pictures</a>
     </div>
 
-    <div class="debug" id="debug">Loading...</div>
-
     <script>
-        // Debug info
-        const debug = document.getElementById('debug');
-        debug.textContent = 'CSS Loaded - Tulip should be visible';
-        
-        // Log to console
-        console.log('Page loaded - tulip should be visible immediately');
-        console.log('Screen size:', window.innerWidth, 'x', window.innerHeight);
-        
-        // Check if elements exist
-        const tulip = document.querySelector('.head');
-        const stem = document.querySelector('.stem');
-        console.log('Tulip head found:', !!tulip);
-        console.log('Stem found:', !!stem);
-        
-        if (tulip) {
-            const rect = tulip.getBoundingClientRect();
-            console.log('Tulip position:', rect);
-        }
+        // Force animations using JavaScript for PC compatibility
+        setTimeout(() => {
+            // Grow stem
+            const stem = document.querySelector('.stem');
+            stem.classList.add('grown');
+            
+            // Show leaves with delays
+            setTimeout(() => {
+                document.querySelector('.leaf-left').classList.add('visible');
+            }, 1800);
+            
+            setTimeout(() => {
+                document.querySelector('.leaf-right').classList.add('visible');
+            }, 2300);
+            
+            setTimeout(() => {
+                document.querySelector('.leaf-left-lower').classList.add('visible');
+            }, 2800);
+            
+            setTimeout(() => {
+                document.querySelector('.leaf-right-lower').classList.add('visible');
+            }, 3100);
+            
+            // Bloom tulip head
+            setTimeout(() => {
+                const head = document.querySelector('.head');
+                head.classList.add('bloomed');
+            }, 3000);
+            
+            // Start swaying after bloom
+            setTimeout(() => {
+                const head = document.querySelector('.head');
+                head.classList.add('swaying');
+            }, 5200);
+            
+            // Show text
+            setTimeout(() => {
+                document.querySelector('.gift-text').classList.add('visible');
+            }, 4500);
+            
+        }, 100);
         
         // Heart trail
         const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
@@ -275,12 +369,7 @@
             setTimeout(() => trail.remove(), 1600);
         });
         
-        // Change debug after 3 seconds
-        setTimeout(() => {
-            debug.textContent = 'Tulip should be visible. If not, check console (F12)';
-            debug.style.background = 'orange';
-            debug.style.color = 'black';
-        }, 3000);
+        console.log('Page loaded - using JavaScript-driven animations for PC compatibility');
     </script>
 </body>
 </html>
