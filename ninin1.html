@@ -24,87 +24,79 @@
         <div class="grid">
 
             <!-- FIRST POLAROID -->
-            <div class="polaroid-card tilt-left">
+<div class="polaroid-card tilt-left" id="card1">
 
-                <div class="card-inner">
+    <div class="card-inner">
 
-                    <!-- FRONT -->
-                    <div class="card-front">
-                        <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
+        <div class="card-front">
+            <img src="assets/photo_2026-05-13_23-47-44.jpg" alt="Us">
 
-                        <p class="caption">
-                            05 / 14 / 2026<br>🫶
-                        </p>
-                    </div>
+            <p class="caption">
+                05 / 14 / 2026<br>🫶
+            </p>
+        </div>
 
-                    <!-- BACK -->
-                    <div class="card-back">
-                        <h3>Dearest Ninin,</h3>
+        <div class="card-back">
+            <h3>Dearest Ninin,</h3>
 
-                        <p class="letter-text">
-                            So Ninin, before this day ends, again happy birthday po!! 
-                            Thank you sa pag-entertain at pagbigay ng chance kay Eytan. 
-                            I'm so thankful to have you po. Even though ganito palang tayo, 
-                            thank you sa trust na binigay mo kay Eytan and I won't promise 
-                            kasi promises are meant to be broken. So I will try my hardest 
-                            na hindi masira at masayang ang trust mo. Continuation sa next pic...
-                        </p>
-                    </div>
+            <p class="letter-text">
+                So Ninin, before this day ends, again happy birthday po!! 
+                Thank you sa pag-entertain at pagbigay ng chance kay Eytan.
+            </p>
+        </div>
 
-                </div>
-            </div>
+    </div>
+</div>
 
-            <!-- SECOND POLAROID -->
-            <div class="polaroid-card tilt-right">
+<!-- SECOND POLAROID -->
+<div class="polaroid-card tilt-right" id="card2">
 
-                <div class="card-inner">
+    <div class="card-inner">
 
-                    <!-- FRONT -->
-                    <div class="card-front">
-                        <img src="assets/download.jpg" alt="Us">
+        <div class="card-front">
+            <img src="assets/download.jpg" alt="Us">
 
-                        <p class="caption">
-                            05 / 14 / 2026<br>🫶
-                        </p>
-                    </div>
+            <p class="caption">
+                05 / 14 / 2026<br>🫶
+            </p>
+        </div>
 
-                    <!-- BACK -->
-                    <div class="card-back">
+        <div class="card-back">
 
-                        <p class="letter-text">
-                            Thank you for understanding our situation Ninin, 
-                            I often get insecure to others kasi di ko ikaw 
-                            na t-treat the way I wanted to pero still genuine 
-                            ka na happy sa akin. Thank you for all kahit 
-                            nagstart palang tayo and we have a long way to go. 
-                            I wish all the best for you Ninin ko, sana matupad 
-                            mo lahat ng pangarap mo, maging successful ikaw. 
-                            You've been a brave girl keep it up po. 
-                            I will always be here Ninin.
-                        </p>
+            <p class="letter-text">
+                Thank you for understanding our situation Ninin.
+            </p>
 
-                        <a href="ninin2.html" class="final-btn">
-                            Open My Gift
-                        </a>
+            <a href="ninin2.html" class="final-btn">
+                Open My Gift
+            </a>
 
-                    </div>
+        </div>
 
-                </div>
-            </div>
+    </div>
+</div>
 
         </div>
     </div>
 
     <!-- FLIP SCRIPT -->
-    <script>
-        const cards = document.querySelectorAll('.polaroid-card');
+<script>
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.toggle('flipped');
-            });
-        });
-    </script>
+    // CARD 1
+    const card1 = document.getElementById("card1");
+
+    card1.addEventListener("click", function () {
+        card1.classList.toggle("flipped");
+    });
+
+    // CARD 2
+    const card2 = document.getElementById("card2");
+
+    card2.addEventListener("click", function () {
+        card2.classList.toggle("flipped");
+    });
+
+</script>
 
 </body>
 </html>
