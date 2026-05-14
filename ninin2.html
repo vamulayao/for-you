@@ -2,9 +2,310 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>An Emerald Tulip for Ninin 💚🌷</title>
-    <link rel="stylesheet" href="ninin2.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(46, 204, 113, 0.2));
+            z-index: 0;
+        }
+
+        .flower-container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 60px;
+            box-sizing: border-box;
+        }
+
+        /* --- THE TULIP --- */
+        .tulip-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            /* Center the tulip vertically */
+            transform: translateY(-30px);
+        }
+
+        /* Stem - using vh for better PC compatibility */
+        .stem {
+            width: 10px;
+            height: 40vh;
+            min-height: 250px;
+            max-height: 350px;
+            background: linear-gradient(180deg, #3a8a2e, #1e5a18, #2d6b23);
+            border-radius: 5px;
+            transform-origin: bottom;
+            animation: growUp 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes growUp {
+            0% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+
+        /* Tulip Head - using percentage for positioning */
+        .head {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transform-origin: bottom center;
+            animation: bloom 2.2s cubic-bezier(0.34, 1.2, 0.64, 1) 3s forwards,
+                       gentleSway 5s ease-in-out infinite 5s;
+            z-index: 2;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
+            margin-bottom: -5px;
+        }
+
+        @keyframes bloom {
+            0% { transform: translateX(-50%) scale(0) translateY(20px); }
+            60% { transform: translateX(-50%) scale(1.05) translateY(-5px); }
+            100% { transform: translateX(-50%) scale(1) translateY(0); }
+        }
+
+        @keyframes gentleSway {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        /* Emerald Tulip Petals */
+        .petal-back-left {
+            position: absolute;
+            bottom: 0;
+            left: -28px;
+            width: 55px;
+            height: 95px;
+            background: linear-gradient(135deg, #2d8f4a, #046307, #1a6b2f);
+            border-radius: 100% 0 50% 50%;
+            transform: rotate(-20deg);
+            transform-origin: bottom center;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+        }
+
+        .petal-back-right {
+            position: absolute;
+            bottom: 0;
+            right: -28px;
+            width: 55px;
+            height: 95px;
+            background: linear-gradient(45deg, #2d8f4a, #046307, #1a6b2f);
+            border-radius: 0 100% 50% 50%;
+            transform: rotate(20deg);
+            transform-origin: bottom center;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+        }
+
+        .petal-front-left {
+            position: absolute;
+            bottom: 0;
+            left: -15px;
+            width: 50px;
+            height: 85px;
+            background: linear-gradient(135deg, #3ca55c, #0e7324, #2a8a42);
+            border-radius: 100% 0 50% 50%;
+            transform: rotate(-8deg);
+            transform-origin: bottom center;
+            z-index: 1;
+        }
+
+        .petal-front-right {
+            position: absolute;
+            bottom: 0;
+            right: -15px;
+            width: 50px;
+            height: 85px;
+            background: linear-gradient(45deg, #3ca55c, #0e7324, #2a8a42);
+            border-radius: 0 100% 50% 50%;
+            transform: rotate(8deg);
+            transform-origin: bottom center;
+            z-index: 1;
+        }
+
+        .petal-center {
+            position: relative;
+            width: 48px;
+            height: 88px;
+            background: linear-gradient(to bottom, #4db86e, #158b33, #0a5c1f);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset -3px -5px 12px rgba(0,0,0,0.3), inset 2px 2px 8px rgba(255,255,255,0.2);
+            z-index: 2;
+        }
+
+        /* Stamen / Center detail */
+        .petal-center::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            background: radial-gradient(#F4C542, #D4AF37);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(244,197,66,0.6);
+        }
+
+        .petal-center::after {
+            content: '✨';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* --- LEAVES --- */
+        .leaf {
+            position: absolute;
+            width: 55px;
+            height: 32px;
+            background: linear-gradient(145deg, #3a9a2e, #1e5a18);
+            border-radius: 0 100% 0 100%;
+            opacity: 0;
+            animation: leafShow 0.9s ease-out forwards;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+        }
+
+        .leaf-left {
+            left: -45px;
+            top: 35%;
+            transform: rotate(-35deg);
+            animation-delay: 1.8s;
+        }
+
+        .leaf-right {
+            right: -45px;
+            top: 20%;
+            transform: rotate(35deg);
+            animation-delay: 2.3s;
+        }
+
+        .leaf-left-lower {
+            left: -35px;
+            top: 65%;
+            width: 45px;
+            height: 26px;
+            transform: rotate(-20deg);
+            animation-delay: 2.8s;
+            background: linear-gradient(145deg, #2d8522, #165012);
+        }
+
+        .leaf-right-lower {
+            right: -35px;
+            top: 55%;
+            width: 45px;
+            height: 26px;
+            transform: rotate(25deg);
+            animation-delay: 3.1s;
+            background: linear-gradient(145deg, #2d8522, #165012);
+        }
+
+        @keyframes leafShow {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- TEXT --- */
+        .gift-text {
+            color: #F4C542;
+            font-family: 'Brush Script MT', 'Segoe UI', cursive;
+            font-size: clamp(1.8rem, 6vw, 3.2rem);
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInUp 1.5s forwards 4.5s;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-link {
+            color: rgba(244, 197, 66, 0.8);
+            text-decoration: none;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            padding: 6px 18px;
+            border-radius: 30px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+            background: rgba(244, 197, 66, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* --- HEART TRAIL --- */
+        .heart-trail {
+            position: absolute;
+            pointer-events: none;
+            font-size: 1.1rem;
+            animation: floatUp 1.6s forwards;
+            z-index: 100;
+            filter: drop-shadow(0 0 4px rgba(255,80,80,0.5));
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.6);
+                opacity: 0;
+            }
+        }
+
+        /* PC-specific fix: ensure tulip is visible */
+        @media (min-width: 768px) {
+            .tulip-wrapper {
+                transform: translateY(-20px);
+            }
+            .stem {
+                height: 35vh;
+                min-height: 280px;
+            }
+        }
+
+        /* Small screen adjustment */
+        @media (max-height: 600px) {
+            .stem {
+                height: 45vh;
+                min-height: 200px;
+            }
+            .tulip-wrapper {
+                transform: translateY(0px);
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="overlay"></div>
@@ -33,7 +334,7 @@
     </div>
 
     <script>
-        // Heart trail with multiple emojis - enhanced tracking
+        // Heart trail with multiple emojis
         const emojis = ['💚', '🌷', '✨', '💛', '🫶'];
         
         document.addEventListener('mousemove', (e) => {
@@ -46,6 +347,9 @@
             document.body.appendChild(trail);
             setTimeout(() => trail.remove(), 1600);
         });
+
+        // Debug: Log when animations start
+        console.log('Page loaded - tulip should appear in ~5 seconds');
     </script>
 </body>
 </html>
